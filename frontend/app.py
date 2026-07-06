@@ -1,4 +1,7 @@
+import requests
 import streamlit as st
+
+API_URL = "http://127.0.0.1:8000/chat"
 
 st.set_page_config(
     page_title="HealthAgents",
@@ -9,14 +12,21 @@ st.set_page_config(
 st.title("🏥 HealthAgents")
 st.subheader("Multi-Agent Medical Intelligence Platform")
 
-st.markdown("---")
-
-st.write("Welcome to HealthAgents!")
-
 user_input = st.text_input("Ask a medical question")
 
 if st.button("Send"):
+
     if user_input:
-        st.success(f"You asked: {user_input}")
-    else:
-        st.warning("Please enter a question.")
+
+        response = requests.post(
+            API_URL,
+            json={"message": user_input}
+        )
+
+        if response.status_code == 200:
+
+            st.success(response.json()["reply"])
+
+        else:
+
+            st.error("Backend Error")
