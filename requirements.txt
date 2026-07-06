@@ -1,0 +1,80 @@
+# ==========================
+# Backend
+# ==========================
+fastapi
+uvicorn
+python-dotenv
+pydantic
+pydantic-settings
+
+# ==========================
+# Frontend
+# ==========================
+streamlit
+
+# ==========================
+# LangChain & LangGraph
+# ==========================
+langchain
+langchain-community
+langchain-core
+langgraph
+
+# ==========================
+# Fireworks AI
+# ==========================
+langchain-fireworks
+fireworks-ai
+
+# ==========================
+# Embeddings & Vector Store
+# ==========================
+faiss-cpu
+sentence-transformers
+
+# ==========================
+# PDF Processing
+# ==========================
+pypdf
+pymupdf
+
+# ==========================
+# AI & Transformers
+# ==========================
+transformers
+accelerate
+torch
+
+# ==========================
+# Data Processing
+# ==========================
+pandas
+numpy
+
+# ==========================
+# Image Processing
+# ==========================
+opencv-python
+Pillow
+
+# ==========================
+# HTTP Requests
+# ==========================
+httpx
+requests
+
+# ==========================
+# File Upload
+# ==========================
+python-multipart
+
+# ==========================
+# Utilities
+# ==========================
+tqdm
+rich
+
+# ==========================
+# Optional
+# ==========================
+jinja2
