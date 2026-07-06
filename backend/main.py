@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-
-from backend.api.routes import router
+from backend.api.router import api_router
 from backend.core.config import settings
 
 app = FastAPI(
@@ -9,4 +8,4 @@ app = FastAPI(
     description=settings.DESCRIPTION,
 )
 
-app.include_router(router)
+app.include_router(api_router)
