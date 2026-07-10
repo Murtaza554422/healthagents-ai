@@ -1,32 +1,38 @@
-import requests
 import streamlit as st
 
-API_URL = "http://127.0.0.1:8000/chat"
+# Import components
+from components.header import load_css
+from components.sidebar import sidebar
 
+from components.hero import hero
+from components.stats import stats
+from components.features import features
+from components.tech_stack import tech_stack
+from components.architecture import architecture
+from components.footer import footer
+
+
+# FIRST Streamlit command
 st.set_page_config(
-    page_title="HealthAgents",
-    page_icon="🏥",
-    layout="wide"
+    page_title="HealthAgents AI",
+    page_icon="🩺",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-st.title("🏥 HealthAgents")
-st.subheader("Multi-Agent Medical Intelligence Platform")
+# Everything else AFTER page_config
+load_css()
 
-user_input = st.text_input("Ask a medical question")
+sidebar()
 
-if st.button("Send"):
+hero()
 
-    if user_input:
+stats()
 
-        response = requests.post(
-            API_URL,
-            json={"message": user_input}
-        )
+features()
 
-        if response.status_code == 200:
+tech_stack()
 
-            st.success(response.json()["reply"])
+architecture()
 
-        else:
-
-            st.error("Backend Error")
+footer()

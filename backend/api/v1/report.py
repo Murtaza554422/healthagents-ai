@@ -1,11 +1,31 @@
-from fastapi import APIRouter
+import os
+import shutil
 
-router = APIRouter(prefix="/report", tags=["Medical Reports"])
+from fastapi import APIRouter, File, UploadFile
+
+from backend.services.report_service import report_service
+from backend.agents.report_agent import report_agent
+
+router = APIRouter(tags=["Medical Report"])
+
+UPLOAD_FOLDER = "data/uploads"
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
-@router.get("/")
-def report():
+@router.post("/report/upload")
+async def upload_report(file: UploadFile = File(...)):
 
-    return {
-        "message": "Medical Report Agent Coming Soon"
-    }
+    file_path = os.path.join(
+        UPLOAD_FOLDER,
+        file.filename
+    )
+
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    report_text = report_service.extract_text(file_path)
+
+    result = report_agent.process(report_text)
+
+    return result

@@ -1,11 +1,26 @@
-from fastapi import APIRouter
+import os
+import shutil
 
-router = APIRouter(prefix="/vision", tags=["Medical Vision"])
+from fastapi import APIRouter, UploadFile, File
+
+from backend.agents.vision_agent import vision_agent
+
+router = APIRouter(tags=["Medical Vision"])
+
+UPLOAD_FOLDER = "data/uploads"
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
-@router.get("/")
-def vision():
+@router.post("/vision/upload")
+async def upload_image(file: UploadFile = File(...)):
 
-    return {
-        "message": "Vision Agent Coming Soon"
-    }
+    file_path = os.path.join(
+        UPLOAD_FOLDER,
+        file.filename
+    )
+
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    return vision_agent.process(file_path)
